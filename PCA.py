@@ -5,10 +5,6 @@ def canonical_dot_product(xi, xj):
     return sum(xii*xjj for xii,xjj in zip(xi, xj))
 
 
-
-
-
-
 def power_iteration(A, num_simulations: int):
     # Ideally choose a random vector
     # To decrease the chance that our vector
