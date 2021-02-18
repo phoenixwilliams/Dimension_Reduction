@@ -26,7 +26,6 @@ def power_iteration(A, num_simulations: int):
 
 
 
-
 class PCA:
     """
     PCA algorithm as outlined in Mathematics for Machine Learning Book.
@@ -61,11 +60,6 @@ class PCA:
             self.B[:,mi] = eigenvector
             cov_mat = cov_mat - np.outer(eigenvector, eigenvector.T) * (eigenval / np.linalg.norm(eigenvector))
 
-        # Transform the data
-        X_reduced = np.dot(self.B.transpose(), meaned_data.transpose()).transpose()
-        X_back = np.dot(self.B, X_reduced.T).T + np.mean(self.data, axis=0)
-
-        return X_back
 
 
     def __call__(self, x):
@@ -84,13 +78,15 @@ if __name__ == "__main__":
     datay = np.where(digits.target==2)
     dataset = digits.data[datay]
 
+
     plt.gray()
     fig, axs = plt.subplots(3, 2)
 
     pca_ob = PCA(dataset, canonical_dot_product, 1)
     pca_ob.fit()
-
-    x_0 = pca_ob(dataset[0])[1].reshape((8,8))
+    dataset_idx = 10
+    
+    x_0 = pca_ob(dataset[dataset_idx])[1].reshape((8,8))
     axs[0, 0].matshow(x_0)
     axs[0, 0].set_title("M=1 Eigenvectors used")
     axs[0, 0].set_yticklabels([])
@@ -99,7 +95,7 @@ if __name__ == "__main__":
     pca_ob = PCA(dataset, canonical_dot_product, 10)
     pca_ob.fit()
 
-    x_0 = pca_ob(dataset[0])[1].reshape((8, 8))
+    x_0 = pca_ob(dataset[dataset_idx])[1].reshape((8, 8))
     axs[0, 1].matshow(x_0)
     axs[0, 1].set_title("M=10 Eigenvectors used")
     axs[0, 1].set_yticklabels([])
@@ -108,7 +104,7 @@ if __name__ == "__main__":
     pca_ob = PCA(dataset, canonical_dot_product, 30)
     pca_ob.fit()
 
-    x_0 = pca_ob(dataset[0])[1].reshape((8, 8))
+    x_0 = pca_ob(dataset[dataset_idx])[1].reshape((8, 8))
     axs[1, 0].matshow(x_0)
     axs[1, 0].set_title("M=30 Eigenvectors used")
     axs[1, 0].set_yticklabels([])
@@ -117,7 +113,7 @@ if __name__ == "__main__":
     pca_ob = PCA(dataset, canonical_dot_product, 50)
     pca_ob.fit()
 
-    x_0 = pca_ob(dataset[0])[1].reshape((8, 8))
+    x_0 = pca_ob(dataset[dataset_idx])[1].reshape((8, 8))
     axs[1, 1].matshow(x_0)
     axs[1, 1].set_title("M=50 Eigenvectors used")
     axs[1, 1].set_yticklabels([])
@@ -126,19 +122,20 @@ if __name__ == "__main__":
     pca_ob = PCA(dataset, canonical_dot_product, 60)
     pca_ob.fit()
 
-    x_0 = pca_ob(dataset[0])[1].reshape((8, 8))
+    x_0 = pca_ob(dataset[dataset_idx])[1].reshape((8, 8))
     axs[2, 0].matshow(x_0)
     axs[2, 0].set_title("M=60 Eigenvectors used")
     axs[2, 0].set_yticklabels([])
     axs[2, 0].set_xticklabels([])
 
-    x_0 = dataset[0].reshape((8, 8))
+    x_0 = dataset[dataset_idx].reshape((8, 8))
     axs[2, 1].matshow(x_0)
     axs[2, 1].set_title("Original")
     axs[2, 1].set_yticklabels([])
     axs[2, 1].set_xticklabels([])
 
     plt.show()
+
 
 
 
