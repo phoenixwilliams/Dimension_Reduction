@@ -135,6 +135,8 @@ if __name__ == "__main__":
     axs[2, 1].set_xticklabels([])
 
     plt.show()
+    
+    print(0)
 
 
 
